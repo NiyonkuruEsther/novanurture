@@ -4,7 +4,7 @@ import Button from "../components/Button";
 
 function Home() {
   return (
-    <div className="flex flex-col h-screen justify-between">
+    <div className="flex flex-col h-screen justify-between max-w-[1300px] mx-auto px-10">
       {/* navBar */}
       <div className="flex justify-between items-center py-8">
         <div className="flex gap-4 items-center ">
