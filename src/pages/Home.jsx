@@ -20,28 +20,29 @@ function Home() {
           <span>Testimonies</span>
           <span>FAQ</span>
         </div>
-        <Button title={"Contact Us"} bgColor="bg-secondaryDark" />
+        <div>
+          <Button title={"Contact Us"} styles="bg-secondaryDark" />
+        </div>
       </div>
 
       {/* Hero section */}
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-2 gap-10">
         {/* Intro text */}
-        <div className="flex flex-col gap-12">
-          <h1 className="text-6xl font-semibold">
+        <div className="flex flex-col gap-12 self-center ">
+          <h1 className="text-[55px] font-bold m-0">
             Healthy Minds, Happy Lives{" "}
             <span className="text-secondaryLight">Mental Health</span>
           </h1>
-          <p>
+          <p className="w-5/6 text-base">
             Lorem ipsum dolor sit amet consectetur. Convallis est urna
             adipiscing fringilla nulla diam lorem non mauris. Ultrices aliquet
             at quam.
           </p>
-          <div>
-            <Button title={"Register"} bgColor="bg-secondaryDark" />
-            <Button title={"Login"} bgColor="bg-secondaryDark" />
+          <div className="flex justify-between">
+            <Button title={"Register"} styles="bg-secondaryDark w-2/5" />
+            <Button title={"Login"} styles="bg-secondaryDark w-2/5" />
           </div>
         </div>
-
         <img src={Doctor} alt="Doctor" />
       </div>
     </div>
