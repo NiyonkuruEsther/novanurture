@@ -1,6 +1,8 @@
 import React from "react";
 import ImageTextCard from "../components/ImageTextCard";
 import { FaHeadSideVirus } from "react-icons/fa";
+import { FaPersonWalkingLuggage } from "react-icons/fa6";
+import { FaHandcuffs } from "react-icons/fa6";
 
 const About = () => {
   return (
@@ -12,7 +14,16 @@ const About = () => {
         </h1>
 
         <div className="flex pt-20 pb-28">
-          <ImageTextCard title={"Freedom of speech"} imageStyles="w-32">
+          <ImageTextCard
+            title={"Freedom of speech"}
+            icon={
+              <FaHandcuffs
+                size={100}
+                color=""
+                className="group-hover:text-white"
+              />
+            }
+          >
             Lorem ipsum dolor sit amet consectetur. Convallis est urna
             adipiscing fringilla nulla diam lorem non mauris.
           </ImageTextCard>
@@ -32,7 +43,7 @@ const About = () => {
           <ImageTextCard
             title={"Tour others life"}
             icon={
-              <FaHeadSideVirus
+              <FaPersonWalkingLuggage
                 size={100}
                 color=""
                 className="group-hover:text-white"
