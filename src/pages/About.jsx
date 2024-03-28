@@ -13,7 +13,7 @@ const About = () => {
           Why Should NovaNurture be your Best Choice
         </h1>
 
-        <div className="flex pt-20 pb-28">
+        <div className="flex pt-20 pb-28 gap-4">
           <ImageTextCard
             title={"Freedom of speech"}
             icon={
