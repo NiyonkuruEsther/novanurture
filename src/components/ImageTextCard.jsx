@@ -8,7 +8,7 @@ const ImageTextCard = ({ title, icon, children, userName, imageStyles }) => {
       {icon}
       {title && <h2 className="text-xl font-semibold">{title}</h2>}
       <p className="">{children}</p>
-      {userName && <h3>{userName}</h3>}
+      {userName && <h3 className="font-semibold text-lg">{userName}</h3>}
     </div>
   );
 };

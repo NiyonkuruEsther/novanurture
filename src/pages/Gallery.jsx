@@ -6,7 +6,7 @@ const Gallery = () => {
       <div className="flex justify-between">
         <div className="w-3/6">
           <p className="text-base font-semibold pb-5">Gallery</p>
-          <h1 className="text-5xl font-semibold m-0">
+          <h1 className="text-4xl font-semibold m-0">
             Start with refreshing images today
           </h1>
         </div>

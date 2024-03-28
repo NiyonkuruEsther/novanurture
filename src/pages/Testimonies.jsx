@@ -1,23 +1,22 @@
 import React from "react";
 import ImageTextCard from "../components/ImageTextCard";
-import { FaHeadSideVirus } from "react-icons/fa";
-import { FaPersonWalkingLuggage } from "react-icons/fa6";
-import { FaHandcuffs } from "react-icons/fa6";
+import { FaHandcuffs, FaPersonWalkingLuggage } from "react-icons/fa6";
+import { FaHeadSideVirus, FaUser, FaUserCircle } from "react-icons/fa";
 
-const About = () => {
+const Testimonies = () => {
   return (
     <div className="max-w-[1200px] mx-auto ">
       <div className="flex flex-col items-center justify-center pt-20">
-        <p className="text-base font-semibold pb-5">About</p>
+        <p className="text-base font-semibold pb-5">Testimonies</p>
         <h1 className="text-4xl font-semibold w-1/2 text-center m-0">
-          Why Should NovaNurture be your Best Choice
+          Top inspiring stories for you
         </h1>
 
         <div className="flex pt-20 pb-28 gap-4">
           <ImageTextCard
-            title={"Freedom of speech"}
+            userName="John Doe"
             icon={
-              <FaHandcuffs
+              <FaUserCircle
                 size={100}
                 color=""
                 className="group-hover:text-white"
@@ -28,9 +27,9 @@ const About = () => {
             adipiscing fringilla nulla diam lorem non mauris.
           </ImageTextCard>
           <ImageTextCard
-            title={"Daily refreshment"}
+            userName="John Doe"
             icon={
-              <FaHeadSideVirus
+              <FaUserCircle
                 size={100}
                 color=""
                 className="group-hover:text-white"
@@ -41,9 +40,9 @@ const About = () => {
             adipiscing fringilla nulla diam lorem non mauris.
           </ImageTextCard>
           <ImageTextCard
-            title={"Tour others life"}
+            userName="John Doe"
             icon={
-              <FaPersonWalkingLuggage
+              <FaUserCircle
                 size={100}
                 color=""
                 className="group-hover:text-white"
@@ -59,4 +58,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Testimonies;
