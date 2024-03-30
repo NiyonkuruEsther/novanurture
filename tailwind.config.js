@@ -10,6 +10,5 @@ export default {
         lightGreen: "#A5D9D0"
       }
     }
-  },
-  plugins: []
+  }
 };
