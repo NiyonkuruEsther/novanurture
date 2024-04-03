@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Quote from "./components/Quote";
 import Statistics from "./components/Statistics";
 import Subscribe from "./components/Subscribe";
@@ -18,6 +19,7 @@ function App() {
       <Subscribe />
       <Testimonies />
       <FAQ />
+      <Footer />
     </>
   );
 }
