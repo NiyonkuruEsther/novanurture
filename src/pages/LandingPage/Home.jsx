@@ -1,8 +1,10 @@
-import Logo from "../assets/logo.png";
-import Doctor from "../assets/doctor.png";
-import Button from "../components/Button"; 
+import Logo from "../../assets/logo.png";
+import Doctor from "../../assets/doctor.png";
+import Button from "../../components/Button";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col h-screen justify-between max-w-[1300px] mx-auto px-10">
       {/* navBar */}
@@ -39,8 +41,16 @@ function Home() {
             at quam.
           </p>
           <div className="flex justify-between">
-            <Button title={"Register"} styles="bg-secondaryDark w-2/5" />
-            <Button title={"Login"} styles="bg-secondaryDark w-2/5" />
+            <Button
+              title={"Register"}
+              styles="bg-secondaryDark w-2/5"
+              onClick={() => navigate("/signup")}
+            />
+            <Button
+              title={"Login"}
+              styles="bg-secondaryDark w-2/5"
+              onClick={() => navigate("/login")}
+            />
           </div>
         </div>
         <img src={Doctor} alt="Doctor" />

@@ -3,16 +3,19 @@ import GirlOnCloud from "../../assets/girlOnCloud.png";
 import Button from "../../components/Button";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../FirebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("start login");
+
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
       localStorage.setItem("user", JSON.stringify(formData));
+      navigate("/home");
       console.log("Success");
     } catch (error) {}
   };
@@ -67,7 +70,14 @@ const Login = () => {
             onClick={handleLogin}
           />
           <p className="text-center pt-2">
-            New to here? <span className="font-semibold">Register</span> Here
+            New to here?{" "}
+            <span
+              className="font-semibold cursor-pointer"
+              onClick={() => navigate("/signup")}
+            >
+              Register
+            </span>{" "}
+            Here
           </p>
         </div>
       </form>

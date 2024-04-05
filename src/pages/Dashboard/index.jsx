@@ -38,11 +38,10 @@ export default function MainProtectedLayout() {
   }
 
   return (
-    <article className="relative flex justify-end text-light-200 bg-red-300">
+    <article className="relative flex justify-end text-light-200 ">
       <section className="w-1/5 h-screen fixed left-0 top-0 px-6 py-6 flex flex-col justify-between border-r-2 border-light-200 md:hidden">
         <section className="flex justify-start items-center gap-4 font-serif font-bold text-xl">
           <img src={Logo} alt="Not Found" className="w-12 h-12" />
-
           <p className="text-2xl">Mind Wave</p>
         </section>
         <section className="flex flex-col gap-3">
@@ -103,7 +102,7 @@ export default function MainProtectedLayout() {
       <section className="w-4/5 md:w-full">
         <section className="items-center justify-between px-12 md:px-4 hidden md:flex my-4">
           <section className="flex justify-start items-center gap-4 font-serif font-bold text-xl">
-            <LogoIcon classes="text-dark-100 w-10 h-10" />
+            {/* <LogoIcon classes="text-dark-100 w-10 h-10" /> */}
             <p className="text-2xl">Mind Wave</p>
           </section>
           <button onClick={openMenu}>

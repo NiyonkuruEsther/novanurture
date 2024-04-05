@@ -3,8 +3,10 @@ import GirlOnCloud from "../../assets/girlOnCloud.png";
 import Button from "../../components/Button";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../FirebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +20,7 @@ const Register = () => {
         console.log("Successfully logged in");
         const user = userCredential.user;
         console.log(user);
-        // navigate("/login");
+        navigate("/login");
       });
     } catch (error) {
       console.log(error);
@@ -78,7 +80,7 @@ const Register = () => {
             onClick={handleSubmit}
           />
           <p className="text-center pt-2">
-            Have an account? <span className="font-semibold">Login</span> Here
+            Have an account? <span className="font-semibold cursor-pointer" onClick={()=> navigate("/login")}>Login</span> Here
           </p>
         </div>
       </form>
