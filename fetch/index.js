@@ -1,39 +1,46 @@
-import { addDoc, collection, doc, getDocs,updateDoc } from "firebase/firestore";
-import { firestoreDB } from "../FirebaseConfig";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  updateDoc
+} from "firebase/firestore";
+import { auth, firestoreDB } from "../FirebaseConfig";
+import { updateEmail, verifyBeforeUpdateEmail } from "firebase/auth";
 
 export const writeUserData = async (data) => {
   console.log(data);
   await addDoc(collection(firestoreDB, "users"), { ...data });
 };
 
-export const createPost= async (data)=>{
+export const createPost = async (data) => {
   console.log(data);
   await addDoc(collection(firestoreDB, "posts"), { ...data });
-}
+};
 
 export const readPosts = async () => {
-  let posts=[];
+  let posts = [];
   await getDocs(collection(firestoreDB, "posts"))
-  .then(
-    (res) => {
+    .then((res) => {
       res.forEach((doc) => {
-        posts.push({ ...doc.data()});
+        posts.push({ ...doc.data() });
       });
-    }
-  ).catch(()=>{
-    console.error("Error getting posts: ", error);
-  }
-  )
+    })
+    .catch(() => {
+      console.error("Error getting posts: ", error);
+    });
   return posts;
-}
+};
 
-export const editUser=async(id,data)=>{
- 
-  console.log(data);
-  await updateDoc(doc(firestoreDB, "users", id), { ...data });
-  await localStorage.setItem("user", JSON.stringify({id:id,...data}));
-
-}
+export const editUser = async (id, currentUser, name, email) => {
+  await verifyBeforeUpdateEmail(currentUser, email);
+  await updateEmail(currentUser, email);
+  await updateDoc(doc(firestoreDB, "users", id), { name: name, email: email });
+  localStorage.setItem(
+    "user",
+    JSON.stringify({ id: id, name: name, email: email })
+  );
+};
 
 export const readUsers = async () => {
   let arr = [];
