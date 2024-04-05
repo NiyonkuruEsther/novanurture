@@ -4,24 +4,37 @@ import Button from "../../components/Button";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../FirebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { writeUserData } from "../../../fetch";
+import { generateFantasyNames } from "../../../fetch/names";
 
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
+
+  function combineNames(names) {
+    const combinedNames = [];
+    for (let i = 0; i < names.length; i += 2) {
+      if (i + 1 < names.length) {
+        combinedNames.push(names[i] + " " + names[i + 1]);
+      } else {
+        combinedNames.push(names[i]);
+      }
+    }
+    return combinedNames;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      await createUserWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         formData.email,
         formData.password
-      ).then((userCredential) => {
-        console.log("Successfully logged in");
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/login");
-      });
+      );
+      const user = userCredential.user;
+      const combinedNames = generateFantasyNames().join(" ");
+      await writeUserData({ email: formData.email, name: combinedNames });
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
@@ -80,7 +93,14 @@ const Register = () => {
             onClick={handleSubmit}
           />
           <p className="text-center pt-2">
-            Have an account? <span className="font-semibold cursor-pointer" onClick={()=> navigate("/login")}>Login</span> Here
+            Have an account?{" "}
+            <span
+              className="font-semibold cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </span>{" "}
+            Here
           </p>
         </div>
       </form>

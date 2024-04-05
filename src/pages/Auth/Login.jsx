@@ -4,6 +4,7 @@ import Button from "../../components/Button";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../FirebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { readUsers } from "../../../fetch";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,9 +15,13 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      localStorage.setItem("user", JSON.stringify(formData));
+      const users = await readUsers();
+      users.forEach((user) => {
+        console.log(user.email);
+        user?.email === formData.email &&
+          localStorage.setItem("user", JSON.stringify(user));
+      });
       navigate("/home");
-      console.log("Success");
     } catch (error) {}
   };
   return (

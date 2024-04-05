@@ -1,11 +1,22 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
-import { NavLink, Outlet, redirect, useNavigate } from "react-router-dom";
-import Logo from "../../assets/logo.png";
-import { useState } from "react";
+import {
+  NavLink,
+  Outlet,
+  redirect,
+  useNavigate,
+  useLocation
+} from "react-router-dom";
+import LogoDash from "../../assets/LogoDash.png";
+import { BsHouse, BsHouseFill } from "react-icons/bs";
+import { GiMirrorMirror, GiShintoShrineMirror } from "react-icons/gi";
+import { MdPostAdd } from "react-icons/md";
+import { BiUserCircle } from "react-icons/bi";
+import Button from "../../components/Button";
 
 export function loader() {
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
   if (!user) {
     throw redirect("/login");
   }
@@ -13,178 +24,86 @@ export function loader() {
 }
 
 export default function MainProtectedLayout() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const { pathname } = location;
+  console.log(pathname);
+
   const navigate = useNavigate();
+
   const user = JSON.parse(localStorage.getItem("user"));
-  const {
-    // displayName,
-    email
-    // image: userImage,
-    // username,
-    // _id: userId
-  } = user;
+  const navLinks = [
+    {
+      icon: (
+        <BsHouseFill
+          color={pathname.includes("home") ? "black" : "white"}
+          size={25}
+        />
+      ),
+      title: "Home"
+    },
+    {
+      icon: (
+        <GiMirrorMirror
+          color={pathname.includes("reflection") ? "black" : "white"}
+          size={25}
+        />
+      ),
+      title: "Reflection"
+    },
+    {
+      icon: (
+        <MdPostAdd
+          color={pathname.includes("post") ? "black" : "white"}
+          size={25}
+        />
+      ),
+      title: "Post"
+    }
+  ];
+  const { email, name } = user;
 
   function handleLogout() {
     localStorage.removeItem("user");
     return navigate("/login");
   }
 
-  function openMenu() {
-    setIsMenuOpen(true);
-  }
-
-  function closeMenu() {
-    setIsMenuOpen(false);
-  }
-
   return (
-    <article className="relative flex justify-end text-light-200 ">
-      <section className="w-1/5 h-screen fixed left-0 top-0 px-6 py-6 flex flex-col justify-between border-r-2 border-light-200 md:hidden">
-        <section className="flex justify-start items-center gap-4 font-serif font-bold text-xl">
-          <img src={Logo} alt="Not Found" className="w-12 h-12" />
-          <p className="text-2xl">Mind Wave</p>
-        </section>
-        <section className="flex flex-col gap-3">
-          <NavLink
-            to="/feeds"
-            className="flex items-center gap-6 py-2 hover:bg-dark-100 hover:text-dark-200"
-          >
-            {/* <img
-              className="w-8 object-contain"
-              src="/home.png"
-              alt="home icon"
-            /> */}
-            <p className="font-semibold text-xl">Home</p>
-          </NavLink>
-          <NavLink
-            to="/quiz"
-            className="flex items-center gap-6 py-2 hover:bg-dark-100 hover:text-dark-200"
-          >
-            {/* <img
-              className="w-8 object-contain"
-              src="/quizzes.png"
-              alt="Quiz icon"
-            /> */}
-            <p className="font-semibold text-xl">Quizzes</p>
-          </NavLink>
-          <NavLink
-            to="/daily"
-            className="flex items-center gap-6 py-2 hover:bg-dark-100 hover:text-dark-200"
-          >
-            {/* <img
-              className="w-8 object-contain"
-              src="/motivation.png"
-              alt="Motivationo icon"
-            /> */}
-            <p className="font-semibold text-xl">Motivation</p>
-          </NavLink>
-        </section>
-        <section>
-          <section className="flex items-center gap-6">
-            {/* <img
-              className="w-16 h-16 rounded-full object-cover"
-              src={userImage}
-              alt="profile img"
-            /> */}
-            <div>
-              <p className="font-bold text-xl">{email}</p>
-              {/* <p className="truncate w-5/6">@{displayName.replace(" ", "")}</p> */}
-            </div>
-          </section>
-          <button
-            className="w-full bg-dark-100 text-dark-200 text-lg font-semibold py-1 rounded-lg mt-6"
+    <div className="flex">
+      <div className="bg-secondaryLight h-screen w-1/5  py-5 flex flex-col justify-between">
+        <div className="flex items-center gap-5 px-5">
+          <img src={LogoDash} alt="Not Found" className="w-12 h-12" />
+          <h3 className="font-semibold text-xl text-white m-0">NovaNarture</h3>
+        </div>
+        {/* navlinks */}
+        <div className="grid place-content-center gap-4 w-full">
+          {navLinks.map((item) => {
+            return (
+              <NavLink
+                to={`/${item.title.toLowerCase()}`}
+                className={`${
+                  pathname.includes(item.title.toLowerCase())
+                    ? "text-black bg-lightGreen "
+                    : "text-white "
+                } flex gap-3 px-5 py-3 w-full`}
+              >
+                {item.icon}
+                <p className={` text-lg`}>{item.title}</p>
+              </NavLink>
+            );
+          })}
+        </div>
+        <div className="px-5 flex flex-col gap-4 items-center">
+          <BiUserCircle color="white" size={50} className="t" />
+          <p className="text-white">@{name.split(" ").join("_")}</p>
+          <p className="text-gray-300 text-wrap ">{email}</p>
+          <Button
+            title="LOGOUT"
+            styles="bg-lightGreen font-bold w-full"
             onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </section>
-      </section>
-      <section className="w-4/5 md:w-full">
-        <section className="items-center justify-between px-12 md:px-4 hidden md:flex my-4">
-          <section className="flex justify-start items-center gap-4 font-serif font-bold text-xl">
-            {/* <LogoIcon classes="text-dark-100 w-10 h-10" /> */}
-            <p className="text-2xl">Mind Wave</p>
-          </section>
-          <button onClick={openMenu}>
-            {/* <img
-              className="w-10 h-10 md:w-9 md:h-9 sm:w-8 sm:h-8 object-contain"
-              src="/menu.png"
-              alt=""
-            /> */}
-          </button>
-        </section>
-        <Outlet />
-      </section>
-      {isMenuOpen && (
-        <section
-          className="w-full h-screen bg-dark-200 fixed left-0 top-0 px-6 py-6 hidden md:flex flex-col justify-between border-r-2 border-light-200 overflow-hidden"
-          onClick={closeMenu}
-        >
-          <section className="flex justify-between">
-            <section className="flex justify-start items-center gap-4 font-serif font-bold text-xl">
-              <LogoIcon classes="text-dark-100 w-10 h-10 sm:w-9 sm:h-9" />
-              <p className="text-2xl sm:text-xl">Mind Wave</p>
-            </section>
-            <button>
-              {/* <img className="w-8 h-8" src="/close.png" alt="" /> */}
-            </button>
-          </section>
-          <section className="flex flex-col gap-3">
-            <NavLink
-              to="/feeds"
-              className="flex items-center gap-6 py-2 hover:bg-dark-100 hover:text-dark-200"
-            >
-              {/* <img
-                className="w-8 object-contain"
-                src="/home.png"
-                alt="home icon"
-              /> */}
-              <p className="font-semibold text-xl">Home</p>
-            </NavLink>
-            <NavLink
-              to="/quiz"
-              className="flex items-center gap-6 py-2 hover:bg-dark-100 hover:text-dark-200"
-            >
-              {/* <img
-                className="w-8 object-contain"
-                src="/quizzes.png"
-                alt="Quiz icon"
-              /> */}
-              <p className="font-semibold text-xl">Quizzes</p>
-            </NavLink>
-            <NavLink
-              to="/daily"
-              className="flex items-center gap-6 py-2 hover:bg-dark-100 hover:text-dark-200"
-            >
-              {/* <img
-                className="w-8 object-contain"
-                src="/motivation.png"
-                alt="Motivationo icon"
-              /> */}
-              <p className="font-semibold text-xl">Motivation</p>
-            </NavLink>
-          </section>
-          <section>
-            <section className="flex items-center gap-6">
-              {/* <img
-                className="w-16 h-16 rounded-full object-cover"
-                src={userImage}
-                alt="profile img"
-              /> */}
-              <div>
-                <p className="font-bold text-xl">{email}</p>
-                {/* <p>@{displayName.replace(" ", "")}</p> */}
-              </div>
-            </section>
-            <button
-              className="w-full bg-dark-100 text-dark-200 text-lg font-semibold py-1 rounded-lg mt-6"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
-          </section>
-        </section>
-      )}
-    </article>
+          />
+        </div>
+      </div>
+      <Outlet />
+    </div>
   );
 }
