@@ -68,7 +68,7 @@ export default function MainProtectedLayout() {
   }
 
   return (
-    <div className="flex">
+    <div className="max-h-screen overflow-hidden flex">
       <div className="bg-secondaryLight h-screen w-1/5  py-5 flex flex-col justify-between">
         <div className="flex items-center gap-5 px-5">
           <img src={LogoDash} alt="Not Found" className="w-12 h-12" />
@@ -103,7 +103,9 @@ export default function MainProtectedLayout() {
           />
         </div>
       </div>
-      <Outlet />
+      <div className="flex-1 ">
+        <Outlet />
+      </div>
     </div>
   );
 }
