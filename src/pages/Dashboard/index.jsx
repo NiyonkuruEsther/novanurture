@@ -93,9 +93,12 @@ export default function MainProtectedLayout() {
           })}
         </div>
         <div className="px-5 flex flex-col gap-4 items-center">
+        <div className="px-5 flex flex-col gap-4 items-center" onClick={()=>navigate("/edit_user")}>
+        
           <BiUserCircle color="white" size={50} className="t" />
           <p className="text-white">@{name.split(" ").join("_")}</p>
           <p className="text-gray-300 text-wrap ">{email}</p>
+          </div>
           <Button
             title="LOGOUT"
             styles="bg-lightGreen font-bold w-full"
