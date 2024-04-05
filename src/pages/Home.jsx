@@ -1,6 +1,6 @@
 import Logo from "../assets/logo.png";
 import Doctor from "../assets/doctor.png";
-import Button from "../components/Button";
+import Button from "../components/Button"; 
 
 function Home() {
   return (

@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import GirlOnCloud from "../../assets/girlOnCloud.png";
 import Button from "../../components/Button";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../FirebaseConfig";
 
 const Login = () => {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    console.log("start login");
+    try {
+      await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      localStorage.setItem("user", JSON.stringify(formData));
+      console.log("Success");
+    } catch (error) {}
+  };
   return (
     <div className={`max-w-screen max-h-screen`}>
       <img
@@ -20,26 +33,39 @@ const Login = () => {
         </div>
 
         <div className="flex flex-col gap-4">
-          <p>Username</p>
+          <p>Email</p>
           <input
             type="text"
-            placeholder="Enter your username"
+            placeholder="Enter your email"
             className="bg-transparent border border-gray-200 rounded-xl px-2 py-3 w-full placeholder:text-gray-300 focus:outline-none"
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            required
           />
         </div>
         <div className="flex flex-col gap-4">
-          <p>Email</p>
+          <p>Password</p>
           <div className="flex flex-col">
             <input
-              type="text"
+              type="password"
               placeholder="Enter your email"
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
               className="bg-transparent border border-gray-200 rounded-xl px-2 py-3 w-full placeholder:text-gray-300 focus:outline-none"
+              required
             />
             <p className="text-end pt-2 font-thin">Forgot password?</p>
           </div>
         </div>
         <div>
-          <Button title="LOGIN" styles="bg-lightGreen font-semibold w-full" />
+          <Button
+            title="LOGIN"
+            styles="bg-lightGreen font-semibold w-full"
+            type="submit"
+            onClick={handleLogin}
+          />
           <p className="text-center pt-2">
             New to here? <span className="font-semibold">Register</span> Here
           </p>
